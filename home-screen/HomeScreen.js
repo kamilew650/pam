@@ -3,18 +3,20 @@ import { Text, View } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { StatusBar } from "react-native";
 import Movies from "./movies/Movies";
-import Search from "./search/Search";
+import { ScreenOrientation } from "expo";
 
 export default class HomeScreen extends Component {
   componentDidMount() {
     StatusBar.setHidden(true);
-    this.setState({ search: "", searchExists: true });
+    ScreenOrientation.lockAsync(ScreenOrientation.Orientation.PORTRAIT);
   }
 
+  state = {
+    search: ""
+  };
+
   updateSearch = search => {
-    if (search.localeCompare("") === 0)
-      this.setState({ search, searchExists: false });
-    else this.setState({ search, searchExists: true });
+    this.setState({ search });
   };
 
   render() {
@@ -28,9 +30,10 @@ export default class HomeScreen extends Component {
           value={search}
           showCancel
         />
-        {/* {this.state.searchExists && ( */}
-        <Search search={this.state.search}></Search>
-        {/* )} */}
+        <Movies
+          search={search}
+          navigate={this.props.navigation.navigate}
+        ></Movies>
       </View>
     );
   }

@@ -22,7 +22,7 @@ export default function App(props) {
   } else {
     return (
       <View style={styles.container}>
-        <HomeScreen></HomeScreen>
+        <AppNavigator></AppNavigator>
       </View>
     );
   }
